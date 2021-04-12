@@ -11,7 +11,7 @@ export default {
           const qs = require('qs');
           const parameter = {
                grant_type: 'authorization_code',
-               client_id: 'b3bdce092bdd7e37d7b394bb8c363098',
+               client_id: '',
                code: this.$route.query.code,
           };
           await axios

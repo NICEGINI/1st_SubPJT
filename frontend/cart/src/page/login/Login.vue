@@ -73,7 +73,7 @@ export default {
      },
      mounted() {
           const naverLogin = new window.naver.LoginWithNaverId({
-               clientId: "9zJZugyWUILEG91zo8TK",
+               clientId: "",
                callbackUrl: `${window.location.origin}/login_callback`,
                isPopup: true,
                loginButton: {
