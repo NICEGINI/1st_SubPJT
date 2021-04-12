@@ -1,0 +1,19 @@
+{
+     "name": "See 장!",
+     "short_name": " ",
+     "icons": [
+          {
+               "src": "/image/192x192_logo_title.png",
+               "sizes": "192x192",
+               "type": "image/png"
+          },
+          {
+               "src": "/image/512x512_logo_title.png",
+               "sizes": "512x512",
+               "type": "image/png"
+          }
+     ],
+     "start_url": "/",
+     "display": "standalone",
+     "background_color" : "#feca57"
+}

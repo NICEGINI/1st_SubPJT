@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  jenkins:
+    image: 'jenkinsci/blueocean'
+    restart: unless-stopped
+    user: root
+    privileged: true
+    ports:
+      - '9090:8080'
+    volumes:
+      - '/home/ubuntu/docker/jenkins-data:/var/jenkins_home'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '$HOME:/home'
+    container_name: 'jenkins'
+
+  # mysql:
+  #   image: mysql:8.0.23
+  #   container_name: mysql
+  #   ports:
+  #     - 3307:3306
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "root"
+  #   command:
+  #     - --character-set-server=utf8mb4
+  #     - --collation-server=utf8mb4_unicode_ci
+  #   volumes:
+  #     - /Users/d109/datadir:/var/lib/mysql
+
+  # redis:                     
+  #  image: redis
+  #  restart: always
+
+  # spring:
+  #   image: spring-backend
+  #   container_name: backend
+  #   build:
+  #     context: ./backend/springboot
+  #     dockerfile: backend.Dockerfile
+  #   depends_on: 
+  #     - redis
+  #   ports:
+  #     - 8081:8081
+
+  # vue:
+  #   image: vue-frontend
+  #   container_name: frontend
+  #   volumes:
+  #     - ./key:/etc/nginx/key
+  #   build:
+  #     context: ./frontend/cart
+  #     dockerfile: frontend.Dockerfile
+  #   depends_on: 
+  #     - spring
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+
+
+    
+

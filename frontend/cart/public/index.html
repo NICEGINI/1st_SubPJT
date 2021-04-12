@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+     <head>
+          <meta charset="utf-8" />
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+          <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+          <title><%= htmlWebpackPlugin.options.title %></title>
+          <link
+               rel="stylesheet"
+               href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+          />
+          <link
+               rel="stylesheet"
+               href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
+          />
+
+          <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+          <!--네이버 시작-->
+          <link
+               rel="stylesheet"
+               href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+          />
+          <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+          <!--네이버-->
+          <script
+               type="text/javascript"
+               src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
+               charset="utf-8"
+          ></script>
+          <!-- 네이버 끝 -->
+
+          <!--카카오 시작-->
+          <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+          <!-- 카카오 끝 -->
+
+          <!-- 폰트 시작 -->
+          <link
+               rel="stylesheet"
+               href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+               href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+               rel="stylesheet"
+          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+               href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&display=swap"
+               rel="stylesheet"
+          />
+
+          <!-- 폰트 끝-->
+
+          <!-- 이미지 넣기 -->
+          <link rel="icon" type="image/png" sizes="32x32" href="/image/32x32_bread_click.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/image/16x16_bread_click.png" />
+
+          <link rel="apple-touch-icon" sizes="192x192" href="/images/192x192_logo_title.png" />
+          <link rel="apple-touch-icon" sizes="512x512" href="/images/512x512_logo_title.png" />
+          <!-- 이미지 넣기 끝-->
+
+          <!-- 상태바 없애기 -->
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+          <meta name="mobile-web-app-capable" content="yes" />
+
+          <link
+               rel="manifest"
+               crossorigin="use-credentials"
+               href="<%= htmlWebpackPlugin.files.publicPath %>manifest.json"
+          />
+     </head>
+     <body>
+          <div id="app"></div>
+          <!-- built files will be auto injected -->
+     </body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.pjt1.repository.mapper.WishListMapper">
+	<select id="selectWishListByMemberId" resultType="WishList" parameterType="String">
+		select *
+		from wish_list
+		where member_id = #{memberId}
+	</select>
+	
+	<insert id="insertWishList" parameterType="WishList">
+		INSERT 
+		INTO wish_list (member_id, site_name, link, product_name, price) 
+		VALUES (#{memberId}, #{siteName}, #{link}, #{productName}, #{price})
+	</insert>
+	
+	<delete id="deleteWishListByNo" parameterType="int">
+		delete from wish_list where wish_no = #{wishNo}
+	</delete>
+</mapper>

@@ -1,0 +1,9 @@
+21/2/1 : object detection test code 돌려봄. training dataset 만드는 중
+21/2/2 : test code output 형식 확인.
+21/2/3 : object detection 학습 완료. output 수정 중.
+21/2/4 : 사실은 학습이 제대로 되지 않고 있었다는 것을 알게됨. 약간 죽고싶어짐.
+21/2/5 : 데이터셋 다시 만드는 중
+
+21/2/10 : classification 연동 최종 확인. object detection은 아직 학습 중,,,
+
+21/2/16 : classification 데이터셋 추가 후 재학습 중

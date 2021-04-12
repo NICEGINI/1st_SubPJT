@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.pjt1.repository.mapper.ImageMapper">
+	
+	<insert id="insertImage" parameterType="images">
+		INSERT 
+		INTO images (member_id, image, state, num) 
+		VALUES (#{memberId}, #{image}, #{state}, #{num})
+	</insert>
+	
+	<insert id="insertImageWithItemName" parameterType="images">
+		INSERT 
+		INTO images (member_id, image, state, num, search) 
+		VALUES (#{memberId}, #{image}, #{state}, #{num}, #{search})
+	</insert>
+	
+	<select id="selectImageResultsByMemberId" resultType="imagesResults" parameterType="String">
+		select *
+		from images_results
+		where member_id = #{memberId}
+	</select>
+	
+	<delete id="deleteImagesResultsByMemberId" parameterType="String" >
+		delete 
+		from images_results 
+		where member_id = #{memberId}
+	</delete>
+	
+</mapper>

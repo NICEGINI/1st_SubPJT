@@ -1,0 +1,77 @@
+// 젠킨스 파이프라인 플러그인을 호출하기 위한 블록
+pipeline {
+    // 파이프라인을 실행하고 싶은 위치 정의
+    agent none
+    // gitlab의 소스를 jenkins 디렉토리로 내려받을 시
+    // skipDefaultCheckout(true)일 경우 내려받는 프로세스 skip
+    // skipDefaultCheckout(false)일 경우 gitlab 소스 체크
+    options { skipDefaultCheckout(true) }
+    // stage의 모음
+    stages {
+        // 실제 작업이 수행되는 블록
+        // 해당 stage 명으로 jenkins 화면에 표시된다
+        stage('Build and Test') {
+            // docker image에 명시된 image를 활용하여 steps 수행
+            agent {
+                docker {
+                    image 'maven:3-alpine'
+                    args '-v /root/.m2:/root/.m2'
+                }
+            }
+            options { skipDefaultCheckout(false) }
+            steps { 
+                // -B : 일괄 처리 모드에서 실행
+                // -DskipTests : test 파일 없어서 해야해 하지만 pom.xml 에 추가되어서 안해도 됨
+                // -f : pom.xml 이 있는 디렉토리를 사용하도록 한다.
+                // sh 'mvn -B -DskipTests -f <your-pom.xml-directory> clean package'
+                sh 'mvn -B -f ./backend/springboot/ clean package'
+            }
+        }
+        stage('Docker build') {
+            agent any
+            steps {
+                sh 'docker build -t vue-frontend:latest ./frontend/cart'
+                sh 'docker build -t spring-backend:latest ./backend/springboot'
+            }
+        }
+        stage('Docker run') {
+            agent any
+            steps {
+                // 현재 동작중인 컨테이너 중 <front-image-name>의 이름을 가진 
+                // 컨테이너를 stop 한다
+                sh 'docker ps -f name=vue-frontend -q \
+                | xargs --no-run-if-empty docker container stop'
+                // 현재 동작중인 컨테이너 중 <back-image-name>의 이름을 가진
+                // 컨테이너를 stop 한다
+                sh 'docker ps -f name=spring-backend -q \
+                | xargs --no-run-if-empty docker container stop'
+                // <front-image-name>의 이름을 가진 컨테이너를 삭제한다.
+                sh 'docker container ls -a -f name=vue-frontend -q \
+                | xargs -r docker container rm'
+                // <back-image-name>의 이름을 가진 컨테이너를 삭제한다.
+                sh 'docker container ls -a -f name=spring-backend -q \
+                | xargs -r docker container rm'
+                // docker image build 시 기존에 존재하던 이미지는
+                // dangling 상태가 되기 때문에 이미지를 일괄 삭제
+                sh 'docker images -f dangling=true && \
+                docker rmi $(docker images -f "dangling=true" -q)'
+
+                // docker container 실행
+                // network 설정했기 때문에 port 안 줘도 됨 ㅎㅎㅎ
+                // sh 'docker run -d --name spring-backend -p 8081:8081 \
+                //     --network jenkins \
+                //     spring-backend:latest'
+                sh 'docker run -d --name spring-backend \
+                    --network jenkins \
+                    spring-backend:latest'
+                sh 'docker run --name vue-frontend \
+                    -p 80:80 \
+                    -p 443:443 \
+                    --network jenkins \
+                    vue-frontend:latest'
+                sh 'docker run -d --name redis_boot -p 6379:6379 redis'
+                // sh 'docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=mypass -d -p 3306:3306 mysql' : mysql 은 현재 ec2 local로 써서 안 함
+            }
+        }
+    }
+}
